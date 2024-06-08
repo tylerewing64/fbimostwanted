@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react'
-
+import './App.css';
 function App() {
   const [page, setPage] = useState(1);
   const [fbiData, setFbiData] = useState();
@@ -16,14 +16,24 @@ function App() {
     fetchData(page);
   },[])
 
+  const moreSuspects = () => { 
+    let randomNum = Math.floor(Math.random() * 20);
+    setPage(randomNum);
+    setItemNumber(randomNum);
+    
+  }
+
   return (
     <>
-    {fbiData && console.log(fbiData.items[itemNumber])}
+    {fbiData && console.log(fbiData)}
     {fbiData ?
-      <>
-    <img src = {fbiData.items[itemNumber].images[0].original}></img>
-    <p>{fbiData.items[itemNumber].details}</p>
-      </>
+      <div className='center'>
+      <h3>Wanted!</h3>
+    <img src = {fbiData.items[itemNumber].images[0].original ? fbiData.items[itemNumber].images[0].original : <>test</> }></img>
+    <p>{fbiData.items[itemNumber].description ?fbiData.items[itemNumber].description : fbiData.items[itemNumber].details  }</p>
+    <p>{fbiData.items[itemNumber].title}</p>
+      <button type = "button" onClick={moreSuspects}>More</button>
+      </div>
 
 
 : null}
